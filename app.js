@@ -15,7 +15,7 @@ import wishListRouter from './src/modules/wishlist/wishlist.router.js'
 import addressRouter from './src/modules/addresses/addresses.router.js'
 import couponRouter from './src/modules/coupon/coupon.router.js'
 import CartRouter from './src/modules/cart/cart.router.js'
-
+import orderRouter from './src/modules/order/order.router.js'
 dotenv.config()
 
 
@@ -40,6 +40,7 @@ app.use('/api/v1/wishlist' , wishListRouter)
 app.use('/api/v1/address' , addressRouter)
 app.use('/api/v1/coupon', couponRouter)
 app.use('/api/v1/cart' , CartRouter)
+app.use("/api/v1/order", orderRouter);
 app.get('/' , (req,res) => {
     res.send('Hi Mohamed')
 })

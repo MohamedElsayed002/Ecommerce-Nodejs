@@ -13,6 +13,7 @@ const catchAsync = (fn) => {
     }
 }
 
+// 63 Apply Coupon
 
 function calcTotalPrice (cart) {
         let totalPrice = 0;
@@ -52,6 +53,10 @@ const addProductToCart = catchAsync(async (req,res,next) => {
 
     calcTotalPrice(isCartExist);
 
+    if(isCartExist.discount) {
+       isCartExist.totalPriceAfterDiscount = isCartExist.totalPrice - (isCartExist.totalPrice * isCartExist.discount) /100
+    }
+
     await isCartExist.save()
     res.json({message : "success" , cart : isCartExist})
 })
@@ -71,6 +76,14 @@ const removeProductFromCart = catchAsync(async (req, res, next) => {
       )
     );
   }
+
+    calcTotalPrice(result);
+
+    if(result.discount) {
+       result.totalPriceAfterDiscount = result.totalPrice - (result.totalPrice * result.discount) /100
+    }
+
+    
   res.json({ message: "success", result: result });
 });
 
@@ -89,7 +102,11 @@ const updateQuantity = catchAsync(async (req, res, next) => {
   }
 
   calcTotalPrice(isCartExist);
+    if(isCartExist.discount) {
+       isCartExist.totalPriceAfterDiscount = isCartExist.totalPrice - (isCartExist.totalPrice * isCartExist.discount) /100
+    }
 
+    
   await isCartExist.save();
   res.json({ message: "success", cart: isCartExist });
 });
